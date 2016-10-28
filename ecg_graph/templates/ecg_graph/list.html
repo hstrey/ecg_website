@@ -1,0 +1,9 @@
+{% if ecg_data_list %}
+    <ul>
+    {% for ecg_data in ecg_data_list %}
+        <li><a href="/ecg_graph/{{ ecg_data.id }}/graph">{{ ecg_data.data_json }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No data are available.</p>
+{% endif %}
