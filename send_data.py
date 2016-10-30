@@ -1,5 +1,6 @@
 import requests
 import json
+import time
 
 fake_ecg = [1035,
             1035,
@@ -243,12 +244,10 @@ fake_ecg = [1035,
             1030,
             1035]
 
-ecg_data_dict = {'timestamp': '10/30/2016', 'data': fake_ecg}
+user = input("Please add user: ")
+ecg_data_dict = {'timestamp': time.asctime(), 'user': user, 'data': fake_ecg}
 
 url = 'http://localhost:8000/ecg_graph/submit/'
-r = requests.post(url, json=ecg_data_dict)
+r = requests.post(url, data=json.dumps(ecg_data_dict))
 
 print(r)
-
-
-
