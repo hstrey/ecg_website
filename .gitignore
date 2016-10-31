@@ -1,5 +1,10 @@
+# database
 db.sqlite3
-__pycache__
-*.pyc
+
+# byte-compiled / optimized / DLL
+__pycache__/
+*.py[cod]
+
+# sublime
 ecg_website.sublime-workspace
 
