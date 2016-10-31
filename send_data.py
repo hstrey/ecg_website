@@ -245,9 +245,18 @@ fake_ecg = [1035,
             1035]
 
 user = input("Please add user: ")
-ecg_data_dict = {'timestamp': time.asctime(), 'user': user, 'data': fake_ecg}
+
+how_many = int(input("How many beats: "))
+
+data = []
+for i in range(how_many):
+    data.extend(fake_ecg)
+
+ecg_data_dict = {'timestamp': time.asctime(), 'user': user, 'data': data}
+
+print(json.dumps(ecg_data_dict))
 
 url = 'http://localhost:8000/ecg_graph/submit/'
 r = requests.post(url, data=json.dumps(ecg_data_dict))
 
-print(r)
+print("length of data: ", len(data))

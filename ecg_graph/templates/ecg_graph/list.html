@@ -1,7 +1,10 @@
-{% if ecg_data_list %}
+{% if zip_list %}
     <ul>
-    {% for ecg_data in ecg_data_list %}
-        <li><a href="/ecg_graph/{{ ecg_data.id }}/graph">{{ ecg_data.data_json }}</a></li>
+    {% for id, timestamp, user, datalength in zip_list %}
+        <li><a href="/ecg_graph/{{ id }}/graph">
+        time created: {{ timestamp }}
+        user: {{ user }}
+        data length: {{datalength}}</a></li>
     {% endfor %}
     </ul>
 {% else %}

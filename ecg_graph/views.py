@@ -13,26 +13,26 @@ from .models import ECGdata
 
 # Create your views here.
 
-
-def index(request):
-
-    plot = figure(title='ECG Plot',
-                  x_axis_label='time')
-    plot.circle([1, 2], [3, 4])
-    script, div = components(plot)
-
-    template = loader.get_template('ecg_graph/index.html')
-    context = {'script': script,
-               'div': div}
-
-    return HttpResponse(template.render(context, request))
-
-
 def list(request):
 
     ecg_data_list = ECGdata.objects.order_by('-created_date')
+    user_list = []
+    time_stamp_list = []
+    data_list = []
+    data_lengths = []
+    id_list = []
+    for ecg_data in ecg_data_list:
+        id_list.append(ecg_data.id)
+        data_dict = json.loads(ecg_data.data_json.replace("'", "\""))
+        user_list.append(data_dict['user'])
+        time_stamp_list.append(data_dict['timestamp'])
+        data_list.append(data_dict['data'])
+        data_lengths.append(len(data_dict['data']))
+    zip_list = zip(id_list, time_stamp_list, user_list, data_lengths)
+    print(zip_list)
     context = {
         'ecg_data_list': ecg_data_list,
+        'zip_list': zip_list,
     }
     return render(request, 'ecg_graph/list.html', context)
 
@@ -53,7 +53,7 @@ def graph(request, data_id):
     context = {'script': script,
                'div': div}
 
-    return render(request, 'ecg_graph/index.html', context)
+    return render(request, 'ecg_graph/graph.html', context)
 
 
 @csrf_exempt
