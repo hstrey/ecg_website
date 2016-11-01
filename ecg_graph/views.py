@@ -13,9 +13,11 @@ from .models import ECGdata
 
 # Create your views here.
 
+
 def list(request):
 
     ecg_data_list = ECGdata.objects.order_by('-created_date')
+
     user_list = []
     time_stamp_list = []
     data_list = []
@@ -28,10 +30,9 @@ def list(request):
         time_stamp_list.append(data_dict['timestamp'])
         data_list.append(data_dict['data'])
         data_lengths.append(len(data_dict['data']))
+
     zip_list = zip(id_list, time_stamp_list, user_list, data_lengths)
-    print(zip_list)
     context = {
-        'ecg_data_list': ecg_data_list,
         'zip_list': zip_list,
     }
     return render(request, 'ecg_graph/list.html', context)

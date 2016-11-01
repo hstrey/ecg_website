@@ -1,12 +1,20 @@
 {% if zip_list %}
-    <ul>
+    <table>
+    <tr>
+        <th>ID</th>
+        <th>Timestamp</th>
+        <th>User</th>
+        <th>Data length</th>
+    </tr>
     {% for id, timestamp, user, datalength in zip_list %}
-        <li><a href="/ecg_graph/{{ id }}/graph">
-        time created: {{ timestamp }}
-        user: {{ user }}
-        data length: {{datalength}}</a></li>
+        <tr>
+            <td><a href="/ecg_graph/{{ id }}/graph">{{ id }}</a></td>
+            <td>{{ timestamp }}</td>
+            <td>{{ user }}</td>
+            <td>{{datalength}}</td>
+        </tr>
     {% endfor %}
-    </ul>
+    </table>
 {% else %}
     <p>No data are available.</p>
 {% endif %}
