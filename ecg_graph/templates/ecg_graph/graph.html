@@ -1,13 +1,15 @@
-<html>
-  <head>
+{% extends 'ecg_graph/base.html' %}
+
+{% block myscript %}
     <link rel="stylesheet" href="http://cdn.pydata.org/bokeh/release/bokeh-0.12.3.min.css" type="text/css" />
     <script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.3.min.js"></script>
     {{ script | safe }}
-  </head>
-  <body>
+{% endblock %}
+
+{% block header_text %}Your Plot{% endblock %}
+
+{% block content %}
     <div class=page>
-      <h1>Your Plot</h1>
       {{ div | safe }}
     </div>
-  </body>
-</html>
+{% endblock %}

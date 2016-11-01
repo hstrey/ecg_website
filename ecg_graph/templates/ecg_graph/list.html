@@ -1,5 +1,10 @@
+{% extends 'ecg_graph/base.html' %}
+
+{% block header_text %}Your ECG data{% endblock %}
+
+{% block content %}
 {% if zip_list %}
-    <table>
+    <table class=table>
     <tr>
         <th>ID</th>
         <th>Timestamp</th>
@@ -18,3 +23,4 @@
 {% else %}
     <p>No data are available.</p>
 {% endif %}
+{% endblock %}
