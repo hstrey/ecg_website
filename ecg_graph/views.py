@@ -57,21 +57,14 @@ def graph(request, data_id):
     return render(request, 'ecg_graph/graph.html', context)
 
 
-@csrf_exempt
 def submit(request):
 
     if request.method == 'POST':
-        received_json = json.loads(request.body.decode("utf-8"))
+        received_json = json.loads(request.POST['data_json'])
         item = ECGdata(data_json=received_json, created_date=timezone.now())
         item.save()
         return StreamingHttpResponse('data received...')
 
-    plot = figure()
-    plot.circle([1, 2], [3, 4])
-    script, div = components(plot)
+    context = {}
 
-    template = loader.get_template('ecg_graph/index.html')
-    context = {'script': script,
-               'div': div}
-
-    return HttpResponse(template.render(context, request))
+    return render(request, 'ecg_graph/submit.html', context)
