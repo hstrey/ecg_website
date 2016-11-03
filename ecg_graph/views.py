@@ -39,22 +39,26 @@ def list(request):
 
 
 def graph(request, data_id):
+    if request.user.is_authenticated():
+        # Do something for authenticated users.
+        data = get_object_or_404(ECGdata, pk=data_id)
+        data_dict = json.loads(data.data_json.replace("'", "\""))
 
-    data = get_object_or_404(ECGdata, pk=data_id)
-    data_dict = json.loads(data.data_json.replace("'", "\""))
+        data_list = data_dict['data']
+        data_x = np.arange(len(data_list))
 
-    data_list = data_dict['data']
-    data_x = np.arange(len(data_list))
+        plot = figure(title=data_dict['timestamp'],
+                      x_axis_label='time')
+        plot.line(data_x, data_list)
+        script, div = components(plot)
 
-    plot = figure(title=data_dict['timestamp'],
-                  x_axis_label='time')
-    plot.line(data_x, data_list)
-    script, div = components(plot)
+        context = {'script': script,
+                   'div': div}
 
-    context = {'script': script,
-               'div': div}
-
-    return render(request, 'ecg_graph/graph.html', context)
+        return render(request, 'ecg_graph/graph.html', context)
+    else:
+        # Do something for anonymous users.
+        return HttpResponse('Unauthorized', status=401)
 
 
 def submit(request):

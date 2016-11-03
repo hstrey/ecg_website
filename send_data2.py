@@ -254,8 +254,9 @@ for i in range(how_many):
 
 ecg_data_dict = {'timestamp': time.asctime(), 'user': user, 'data': data}
 
-print(json.dumps(ecg_data_dict))
-
+# now we send the dict to the website via json
+# we first have to get the website to grab the csrf token
+# then we post the json data with the token attached
 url = 'http://localhost:8000/ecg_graph/submit/'
 
 s = requests.Session()
