@@ -13,7 +13,22 @@
     {% endblock %}
   </head>
   <body>
-    <h1>{% block header_text %}{% endblock %}</h1>
+    <div class="container">
+        <div class="row" style ='background-color: #2ba6cb;'>
+            <div class="col-md-12" >
+                <div class="imgAbt">
+                    <img style='float:left;width:150px;height:150px; margin-right:10px;' src="/static/images/betta3.jpg" /><img style='float:right;width:150px;height:150px; margin-left:10px;' src="/static/images/betta2.jpg" />
+                </div>
+            </div>
+            <div class="col-md-12">
+                <h1>Betta Sleep</h1>
+
+                <h3>Better sleep through wireless technology</h3>
+            </div>
+         </div>
+    </div>
+
+    <h2>{% block header_text %}{% endblock %}</h2>
     {% block content %}
     {% endblock %}
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
