@@ -45,6 +45,7 @@ def graph(request, data_id):
         data_dict = json.loads(data.data_json.replace("'", "\""))
 
         data_list = data_dict['data']
+        print(data_list)
         data_x = np.arange(len(data_list))
 
         plot = figure(title=data_dict['timestamp'],
@@ -72,3 +73,4 @@ def submit(request):
     context = {}
 
     return render(request, 'ecg_graph/submit.html', context)
+
