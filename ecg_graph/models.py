@@ -4,5 +4,6 @@ from django.db import models
 
 
 class ECGdata(models.Model):
-    data_json = models.CharField(max_length=1000)
+    data_json = models.TextField()
     created_date = models.DateTimeField('date created')
+    models.ForeignKey('auth.User', related_name='ecg_data', on_delete=models.CASCADE)
