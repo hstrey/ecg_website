@@ -1,4 +1,5 @@
 import requests
+from requests.auth import HTTPBasicAuth
 import json
 import time
 
@@ -260,13 +261,13 @@ ecg_data_dict = {'timestamp': time.asctime(), 'user': user, 'data': data}
 url = 'http://localhost:8000/ecg_graph/submit/'
 
 s = requests.Session()
-r1 = s.get(url)
+r1 = s.get(url, auth=HTTPBasicAuth('admin', 'password123'))
 csrf_token = r1.cookies['csrftoken']
-r2 = s.post(url,
+r2 = s.post(url, auth=HTTPBasicAuth('admin', 'password123'),
             data={'csrfmiddlewaretoken': csrf_token,
                   'data_json': json.dumps(ecg_data_dict)},
             headers=dict(Referer=url))
-
+print(r2)
 # r = requests.post(url, data=json.dumps(ecg_data_dict))
 
 print("length of data: ", len(data))

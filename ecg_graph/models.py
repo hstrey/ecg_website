@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -6,4 +7,4 @@ from django.db import models
 class ECGdata(models.Model):
     data_json = models.TextField()
     created_date = models.DateTimeField('date created')
-    models.ForeignKey('auth.User', related_name='ecg_data', on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, default=1)

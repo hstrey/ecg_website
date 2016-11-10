@@ -3,6 +3,7 @@ from django.http import HttpResponse, StreamingHttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.template import loader
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 from bokeh.plotting import figure
 from bokeh.embed import components
@@ -63,12 +64,15 @@ def graph(request, data_id):
 
 
 def submit(request):
-
     if request.method == 'POST':
-        received_json = json.loads(request.POST['data_json'])
-        item = ECGdata(data_json=received_json, created_date=timezone.now())
-        item.save()
-        return StreamingHttpResponse('data received...')
+            received_json = json.loads(request.POST['data_json'])
+            try:
+                u = User.objects.get(username=received_json['user'])
+            except:
+                return HttpResponse('Unauthorized', status=401)
+            item = ECGdata(data_json=received_json, created_date=timezone.now(), owner=u)
+            item.save()
+            return StreamingHttpResponse('data received...')
 
     context = {}
 
