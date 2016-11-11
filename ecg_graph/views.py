@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, StreamingHttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.template import loader
@@ -16,27 +16,27 @@ from .models import ECGdata
 
 
 def list(request):
+    if request.user.is_authenticated():
+        ecg_data_list = ECGdata.objects.filter(owner=request.user)
+        user_list = []
+        time_stamp_list = []
+        data_list = []
+        data_lengths = []
+        id_list = []
+        for ecg_data in ecg_data_list:
+            id_list.append(ecg_data.id)
+            data_dict = json.loads(ecg_data.data_json.replace("'", "\""))
+            user_list.append(data_dict['user'])
+            time_stamp_list.append(data_dict['timestamp'])
+            data_list.append(data_dict['data'])
+            data_lengths.append(len(data_dict['data']))
 
-    ecg_data_list = ECGdata.objects.order_by('-created_date')
-
-    user_list = []
-    time_stamp_list = []
-    data_list = []
-    data_lengths = []
-    id_list = []
-    for ecg_data in ecg_data_list:
-        id_list.append(ecg_data.id)
-        data_dict = json.loads(ecg_data.data_json.replace("'", "\""))
-        user_list.append(data_dict['user'])
-        time_stamp_list.append(data_dict['timestamp'])
-        data_list.append(data_dict['data'])
-        data_lengths.append(len(data_dict['data']))
-
-    zip_list = zip(id_list, time_stamp_list, user_list, data_lengths)
-    context = {
-        'zip_list': zip_list,
-    }
-    return render(request, 'ecg_graph/list.html', context)
+        zip_list = zip(id_list, time_stamp_list, user_list, data_lengths)
+        context = {
+            'zip_list': zip_list,
+        }
+        return render(request, 'ecg_graph/list.html', context)
+    return redirect('/login')
 
 
 def graph(request, data_id):
