@@ -1,7 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, StreamingHttpResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.template import loader
 from django.utils import timezone
 from django.contrib.auth.models import User
 
@@ -59,8 +57,8 @@ def graph(request, data_id):
 
         return render(request, 'ecg_graph/graph.html', context)
     else:
-        # Do something for anonymous users.
-        return HttpResponse('Unauthorized', status=401)
+        # redirect to ecg_graph/list
+        return redirect('/ecg_graph/list')
 
 
 def submit(request):
