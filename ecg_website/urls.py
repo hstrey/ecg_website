@@ -26,6 +26,8 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^ecgdata/$', views.ECGdataList.as_view()),
     url(r'^ecgdata/(?P<pk>[0-9]+)/$', views.ECGdataDetail.as_view()),
+    url(r'^users/$', views.UserList.as_view()),
+    url(r'^users/(?P<pk>[0-9]+)/$', views.UserDetail.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

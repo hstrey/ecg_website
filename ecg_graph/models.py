@@ -7,4 +7,4 @@ from django.contrib.auth.models import User
 class ECGdata(models.Model):
     data_json = models.TextField()
     created_date = models.DateTimeField('date created')
-    owner = models.ForeignKey(User, default=1)
+    owner = models.ForeignKey(User, default=1, related_name='ecgdata')
