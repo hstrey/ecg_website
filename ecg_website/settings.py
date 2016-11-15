@@ -32,6 +32,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'ecg_graph.apps.EcgGraphConfig',
+    'rest_framework',
+    'ecg_restapi.apps.EcgRestapiConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

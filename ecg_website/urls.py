@@ -16,10 +16,16 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
+from rest_framework.urlpatterns import format_suffix_patterns
+from ecg_restapi import views
 
 urlpatterns = [
     url(r'^ecg_graph/', include('ecg_graph.urls')),
     url(r'^login/$', auth_views.login, name='login'),
     url(r'^logout/$', auth_views.logout, name='logout'),
     url(r'^admin/', admin.site.urls),
+    url(r'^ecgdata/$', views.ECGdataList.as_view()),
+    url(r'^ecgdata/(?P<pk>[0-9]+)/$', views.ECGdataDetail.as_view()),
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
