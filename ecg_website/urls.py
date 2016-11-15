@@ -24,8 +24,8 @@ urlpatterns = [
     url(r'^login/$', auth_views.login, name='login'),
     url(r'^logout/$', auth_views.logout, name='logout'),
     url(r'^admin/', admin.site.urls),
-    url(r'^ecgdata/$', views.ECGdataList.as_view()),
-    url(r'^ecgdata/(?P<pk>[0-9]+)/$', views.ECGdataDetail.as_view()),
+    url(r'^ecgdata/$', views.EcgDataList.as_view()),
+    url(r'^ecgdata/(?P<pk>[0-9]+)/$', views.EcgDataDetail.as_view()),
     url(r'^users/$', views.UserList.as_view()),
     url(r'^users/(?P<pk>[0-9]+)/$', views.UserDetail.as_view()),
 ]

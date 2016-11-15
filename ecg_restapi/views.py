@@ -4,7 +4,7 @@ from rest_framework import generics
 from django.contrib.auth.models import User
 
 
-class ECGdataList(generics.ListCreateAPIView):
+class EcgDataList(generics.ListCreateAPIView):
     queryset = ECGdata.objects.all()
     serializer_class = ECGdataSerializer
 
@@ -12,7 +12,7 @@ class ECGdataList(generics.ListCreateAPIView):
         serializer.save(owner=self.request.user)
 
 
-class ECGdataDetail(generics.RetrieveUpdateDestroyAPIView):
+class EcgDataDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = ECGdata.objects.all()
     serializer_class = ECGdataSerializer
 
