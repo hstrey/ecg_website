@@ -14,7 +14,7 @@ class EcgDataList(generics.ListCreateAPIView):
         return ECGdata.objects.filter(owner=user)
 
     def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+        serializer.save(owner=self.request.user, created_data=timezone.now())
 
 
 class EcgDataDetail(generics.RetrieveUpdateDestroyAPIView):

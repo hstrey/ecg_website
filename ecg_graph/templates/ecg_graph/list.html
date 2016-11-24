@@ -8,14 +8,12 @@
     <tr>
         <th>ID</th>
         <th>Timestamp</th>
-        <th>User</th>
         <th>Data length</th>
     </tr>
-    {% for id, timestamp, user, datalength in zip_list %}
+    {% for id, timestamp, datalength in zip_list %}
         <tr>
             <td><a href="/ecg_graph/{{ id }}/graph">{{ id }}</a></td>
             <td>{{ timestamp }}</td>
-            <td>{{ user }}</td>
             <td>{{datalength}}</td>
         </tr>
     {% endfor %}
