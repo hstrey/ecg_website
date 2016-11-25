@@ -253,7 +253,7 @@ data = []
 for i in range(how_many):
     data.extend(fake_ecg)
 
-ecg_data_dict = {'data_json': {'timestamp': time.asctime(), 'data': data}, 'created_date': "2016-11-24T10:10:00Z"}
+ecg_data_dict = {'data_json': {'timestamp': time.asctime(), 'data': data}}
 
 # now we send the dict to the website via jsons
 # we first have to get the website to grab the csrf token
@@ -261,7 +261,7 @@ ecg_data_dict = {'data_json': {'timestamp': time.asctime(), 'data': data}, 'crea
 url = 'http://localhost:8000/ecgdata/'
 
 s = requests.Session()
-r2 = s.post(url, auth=HTTPBasicAuth('admin', 'password123'),
+r2 = s.post(url, auth=('admin', 'password123'),
             json=ecg_data_dict)
 print(r2)
 print(r2.headers)

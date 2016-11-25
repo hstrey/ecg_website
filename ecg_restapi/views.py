@@ -3,6 +3,7 @@ from ecg_restapi.serializers import ECGdataSerializer, UserSerializer
 from rest_framework import generics
 from django.contrib.auth.models import User
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from django.utils import timezone
 
 class EcgDataList(generics.ListCreateAPIView):
     serializer_class = ECGdataSerializer
@@ -14,7 +15,7 @@ class EcgDataList(generics.ListCreateAPIView):
         return ECGdata.objects.filter(owner=user)
 
     def perform_create(self, serializer):
-        serializer.save(owner=self.request.user, created_data=timezone.now())
+        serializer.save(owner=self.request.user, created_date=timezone.now())
 
 
 class EcgDataDetail(generics.RetrieveUpdateDestroyAPIView):
