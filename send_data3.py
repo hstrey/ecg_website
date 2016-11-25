@@ -253,7 +253,7 @@ data = []
 for i in range(how_many):
     data.extend(fake_ecg)
 
-ecg_data_dict = {'data_json': {'timestamp': time.asctime(), 'data': data}}
+ecg_data_dict = {"data_json": "1234"}
 
 # now we send the dict to the website via jsons
 # we first have to get the website to grab the csrf token
@@ -261,10 +261,11 @@ ecg_data_dict = {'data_json': {'timestamp': time.asctime(), 'data': data}}
 url = 'http://localhost:8000/ecgdata/'
 
 s = requests.Session()
-r2 = s.post(url, auth=('admin', 'password123'),
-            json=ecg_data_dict)
+r2 = s.post(url, auth=('admin', 'password123'), json=ecg_data_dict)
 print(r2)
 print(r2.headers)
+for key in r2:
+      print("key: ",key)
 # r = requests.post(url, json=ecg_data_dict)
 
 print("length of data: ", len(data))
