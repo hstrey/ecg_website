@@ -23,7 +23,11 @@ def list(request):
         for ecg_data in ecg_data_list:
             id_list.append(ecg_data.id)
             data_dict = json.loads(ecg_data.data_json.replace("'", "\""))
-            time_stamp_list.append(data_dict['timestamp'])
+            try:
+                timestamp=data_dict['timestamp']
+            except:
+                timestamp="unknown"
+            time_stamp_list.append(timestamp)
             data_list.append(data_dict['data'])
             data_lengths.append(len(data_dict['data']))
 
@@ -44,8 +48,11 @@ def graph(request, data_id):
         data_list = data_dict['data']
         print(data_list)
         data_x = np.arange(len(data_list))
-
-        plot = figure(title=data_dict['timestamp'],
+        try:
+            timestamp=data_dict['timestamp']
+        except:
+            timestamp="unknown"
+        plot = figure(title=timestamp,
                       x_axis_label='time')
         plot.line(data_x, data_list)
         script, div = components(plot)

@@ -253,7 +253,7 @@ data = []
 for i in range(how_many):
     data.extend(fake_ecg)
 
-ecg_data_dict = {"data_json": "1234"}
+ecg_data_dict = {'data_json': '{"data": ' + json.dumps(data) + '}'}
 
 # now we send the dict to the website via jsons
 # we first have to get the website to grab the csrf token
