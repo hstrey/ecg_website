@@ -258,7 +258,7 @@ ecg_data_dict = {'timestamp': time.asctime(), 'user': user, 'data': data}
 # now we send the dict to the website via json
 # we first have to get the website to grab the csrf token
 # then we post the json data with the token attached
-url = 'http://localhost:8000/ecg_graph/submit/'
+url = 'http://streycat.streylab.com/ecg_graph/submit/'
 
 s = requests.Session()
 r1 = s.get(url, auth=HTTPBasicAuth('admin', 'password123'))
