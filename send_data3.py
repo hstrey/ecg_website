@@ -253,21 +253,20 @@ data = []
 for i in range(how_many):
     data.extend(fake_ecg)
 
-ecg_data_dict = {'timestamp': time.asctime(), 'user': user, 'data': data}
+ecg_data_dict = {'data_json': '{"data": ' + json.dumps(data) + '}'}
 
-# now we send the dict to the website via json
+# now we send the dict to the website via jsons
 # we first have to get the website to grab the csrf token
 # then we post the json data with the token attached
+
 url = 'http://streycat.streylab.com/ecg_graph/submit/'
 
 s = requests.Session()
-r1 = s.get(url, auth=HTTPBasicAuth('admin', 'password123'))
-csrf_token = r1.cookies['csrftoken']
-r2 = s.post(url, auth=HTTPBasicAuth('admin', 'password123'),
-            data={'csrfmiddlewaretoken': csrf_token,
-                  'data_json': json.dumps(ecg_data_dict)},
-            headers=dict(Referer=url))
+r2 = s.post(url, auth=('admin', 'password123'), json=ecg_data_dict)
 print(r2)
-# r = requests.post(url, data=json.dumps(ecg_data_dict))
+print(r2.headers)
+for key in r2:
+      print("key: ",key)
+# r = requests.post(url, json=ecg_data_dict)
 
 print("length of data: ", len(data))

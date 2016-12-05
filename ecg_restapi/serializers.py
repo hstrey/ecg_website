@@ -5,6 +5,7 @@ from ecg_graph.models import ECGdata
 
 class ECGdataSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
+    created_date = serializers.ReadOnlyField()
     class Meta:
         model = ECGdata
         fields = ('id', 'created_date', 'data_json', 'owner')
