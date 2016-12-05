@@ -259,10 +259,10 @@ ecg_data_dict = {'data_json': '{"data": ' + json.dumps(data) + '}'}
 # we first have to get the website to grab the csrf token
 # then we post the json data with the token attached
 
-url = 'http://streycat.streylab.com/ecg_graph/submit/'
+url = 'http://streycat.streylab.com/ecgdata/'
 
 s = requests.Session()
-r2 = s.post(url, auth=('admin', 'password123'), json=ecg_data_dict)
+r2 = s.post(url, auth=('admin', 'BME573sleep'), json=ecg_data_dict)
 print(r2)
 print(r2.headers)
 for key in r2:
