@@ -1,0 +1,13 @@
+[Unit]
+Description=ecg website automatic start
+After=network.target
+
+[Service]
+User=hstrey
+Group=hstrey
+WorkingDirectory=/home/hstrey/sites/streycat.streylab.com/source
+ExecStart=/home/hstrey/sites/streycat.streylab.com/virtualenv/bin/gunicorn --bi$
+
+[Install]
+WantedBy=multi-user.target
+
